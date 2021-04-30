@@ -24,6 +24,12 @@ namespace GraphQL.API.GraphqlCore
           "participants",
           resolve: context => repository.GetParticipants()
        );
+            Field<ListGraphType<EmployeeAttendenceType>>(
+       "employeesattendence",
+       arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "attendenceDate" }),
+
+       resolve: context => repository.GetEmployeesAttendence(context.GetArgument<string>("attendenceDate"))
+    );
         }
     }
 }

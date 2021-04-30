@@ -15,6 +15,8 @@ namespace GraphQL.API.Infrastructure.DBContext
         {
         }
 
+        public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<EmployeeAttendence> EmployeeAttendence { get; set; }
         public virtual DbSet<EventParticipants> EventParticipants { get; set; }
         public virtual DbSet<Participant> Participant { get; set; }
         public virtual DbSet<TechEventInfo> TechEventInfo { get; set; }
@@ -23,13 +25,33 @@ namespace GraphQL.API.Infrastructure.DBContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=DELL-PC;Database=TechEventDB;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.Property(e => e.EmployeeId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EmployeeName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<EmployeeAttendence>(entity =>
+            {
+                entity.Property(e => e.AttendenceDate).HasColumnType("datetime");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<EventParticipants>(entity =>
             {
                 entity.HasKey(e => e.EventParticipantId);

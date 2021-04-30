@@ -8,16 +8,27 @@ import {InMemoryCache} from '@apollo/client/core';
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import bootstrap from "bootstrap";
-
+import { DatePickerComponent } from './date-picker/date-picker.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListComponent
+    ListComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    FormsModule
+
+    
   ],
   providers: [
     {

@@ -10,6 +10,8 @@ namespace GraphQL.API.Infrastructure.Repositories
         Task<TechEventInfo> GetTechEventById(int id);
         Task<List<Participant>> GetParticipantInfoByEventId(int id);
         Task<Participant[]> GetParticipants();
+        Task<List<Employee>> GetEmployeesAttendence(string Date);
+
 
     }
 }

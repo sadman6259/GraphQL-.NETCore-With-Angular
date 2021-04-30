@@ -5,33 +5,54 @@ import { map } from 'rxjs/operators';
 
 import gql from 'graphql-tag';
 
-import { Course, Query } from '../types';
+import { Employee, Query } from '../types';
+const EMPLOYEES = gql`
+query employeesattendence ($attendenceDate: String!){
+  employeesattendence (attendenceDate: $attendenceDate){
+            employeeId,
+            employeeName
+          
+         
+      }
+  }
+`;
+
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
+
+
 export class ListComponent implements OnInit {
-  courses: Observable<Course[]>;
+  employees: Observable<Employee[]>;
+  allemployees:Employee[] = [];
+  dateinput: String = "";
+  message:string="";
+
+
   constructor(private apollo: Apollo) { }
 
   ngOnInit() {
-    this.courses = this.apollo.watchQuery<Query>({
-      query: gql`
-        query participants {
-          participants{
-            participantId
-              participantName
-            }
-        }
-      `
-    })
-      .valueChanges
-      .pipe(
-        map(result => result.data.participants)
-      );
-      console.log();
-  }
+    this.message ="please select a date to view Employees";
 
+//this.getEmployee();
+  }
+  getEmployee(data){
+    // this.message ="No record found on this date";
+    debugger
+    this.apollo.watchQuery<any>({
+       query: EMPLOYEES,
+       variables:{
+        attendenceDate: data
+       }
+     })
+     .valueChanges
+     .subscribe(({data, loading}) => {
+       console.log(data.employeesattendence);
+       this.allemployees = data.employeesattendence;
+     });
+   }
+ 
 }

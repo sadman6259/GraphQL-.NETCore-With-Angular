@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 //using GraphQL.API.Domain;
@@ -14,7 +15,7 @@ namespace GraphQL.API.Infrastructure.Repositories
     /// TechEventRepository.  
     /// </summary>  
     [EnableCors("AllowMyOrigin")]
-    public class TechEventRepository : ITechEventRepository
+    public class TechEventRepository: ITechEventRepository
     {
 
         /// <summary>  
@@ -48,6 +49,26 @@ namespace GraphQL.API.Infrastructure.Repositories
         public async Task<Participant[]> GetParticipants()
         {
             return _context.Participant.ToArray();
+
+        }
+        [EnableCors("AllowMyOrigin")]
+        //public async Task<Employee[]> GetEmployeesAttendence()
+        //{
+        //    var list = _context.Employee.FromSql($"call EmployeeAttendenceSP()").ToArray();
+        //    return list;
+        //}
+        public async Task<List<Employee>> GetEmployeesAttendence(string Date)
+        {
+            var date = new SqlParameter("AttendenceDate", Date);
+
+        
+            var empinfo = _context.Employee
+                .FromSql("EXECUTE dbo.EmployeeAttendenceSP @AttendenceDate={0}", Date)
+                .ToList();
+            return empinfo;
+
+
+
         }
     }
 }

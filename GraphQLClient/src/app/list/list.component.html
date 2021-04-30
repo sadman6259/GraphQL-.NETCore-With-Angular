@@ -1,15 +1,14 @@
-<!-- <div *ngFor="let course of courses | async">
-    <div class="card" style="width: 100%; margin-top: 10px">
-      <div class="card-body">
-        <h5 class="card-title">{{course.participantId}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">by {{course.participantName}}</h6>
-   
-      </div>
-    </div>
-  </div> -->
-
-  <h4>Participants List</h4>
-  <table class="table">
+  <div style="height: 50px;" class="jumbotron">
+    <h4 style="margin-left: 500px;">Employee Attendence</h4>
+    
+</div>
+  <div style="width: 300px; margin-left: 500px;" class="md-form md-outline input-with-post-icon datepicker">
+    <input placeholder="Select date" type="date" id="example" class="form-control" [(ngModel)]="dateinput">
+  </div>
+  <button style="margin-left: 630px; margin-top: 20px;" class="btn btn-success" (click)="getEmployee(dateinput)" >Find</button>
+  <!-- <h2 *ngIf ="allemployees.length == 0">{{message}}<h2> -->
+  <div style ="margin-top: 40px;" *ngIf ="allemployees.length > 0">
+  <table style="width: 700px; margin-left: 350px;" class="table table-dark">
     <thead>
       <tr>
         <th scope="col">Id </th>
@@ -17,10 +16,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr mdbTableCol *ngFor="let course of courses | async">
-        <td>{{course.participantId}}</td>
-        <td>{{course.participantName}}</td>
+      <tr mdbTableCol *ngFor="let emp of allemployees">
+        <td>{{emp.employeeId}}</td>
+        <td>{{emp.employeeName}}</td>
        
       </tr>
     </tbody>
   </table>
+</div>

@@ -1,10 +1,11 @@
-export type Course = {
+export type Employee = {
     id: number;
-    participantId: number;
-    participantName: string;
+    employeeId: number;
+    emloyeeName: string;
+    attendenceDate:string;
    
 }
 
 export type Query = {
-    participants: Course[];
+    employees: Employee[];
 }

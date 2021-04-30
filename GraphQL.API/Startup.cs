@@ -35,6 +35,8 @@ namespace GraphQL.API
         {
             services.AddSingleton<TechEventInfoType>();
             services.AddSingleton<ParticipantType>();
+            services.AddSingleton<EmployeeAttendenceType>();
+
             services.AddSingleton<TechEventQuery>();
             services.AddTransient<ITechEventRepository, TechEventRepository>();
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
